@@ -11,4 +11,8 @@ export class TodoInMemoryRepository implements TodoRepositoryInterface {
     async findAll(): Promise<Todo[]> {
         return this.items;
     }
+
+    async findById(id: number): Promise<Todo | undefined> {
+        return this.items.find(item => item.id === id);
+    }
 }
