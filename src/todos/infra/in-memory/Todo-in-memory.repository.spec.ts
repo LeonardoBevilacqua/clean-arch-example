@@ -23,8 +23,13 @@ describe("TodoInMemoryRepository Test", () => {
         expect(output).toStrictEqual([todo]);
     })
 
-    test("should a todo by id", async () => {
+    test("should return a todo by id", async () => {
         const output = await repository.findById(todo.id);
         expect(output).toStrictEqual(todo);
+    })
+
+    test("should return undefined",async () => {
+        const output = await repository.findById(0);
+        expect(output).toStrictEqual(undefined);
     })
 })
