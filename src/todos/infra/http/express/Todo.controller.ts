@@ -20,8 +20,12 @@ todoController.get('/', async (_req: Request, res: Response) => {
 
 todoController.get('/:id', async (req: Request, res: Response) => {
     const getByIdUseCase = new GetTodoByIdUseCase(todoRepo);
-    const output = await getByIdUseCase.execute(Number(req.params.id));
-    res.json(output);
+    try {
+        const output = await getByIdUseCase.execute(Number(req.params.id));
+        res.json(output);
+    } catch (error) {
+        res.sendStatus(404);
+    }
 });
 
 export { todoController }
