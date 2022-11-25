@@ -10,7 +10,7 @@ export class Todo {
     public props: Required<TodoProps>
 
     private constructor(props: TodoProps, id?: number) {
-        this.id = id || Math.random() * 100;
+        this.id = id || Math.floor(Math.random() * 100);
 
         if (!props) {
             //@ts-expect-error used for ORM
