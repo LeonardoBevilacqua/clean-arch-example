@@ -1,9 +1,9 @@
-import { TodoInMemoryRepository } from "../infra/in-memory/Todo-in-memory.repository"
+import { TodoInMemoryRepository } from "../../infra/in-memory/Todo-in-memory.repository"
 import { CreateTodoUseCase } from "./Create-todo.use-case";
 
 describe('CreateTodoUseCase Tests', () => {
 
-    it('shoul create a new todo', async () => {
+    it('should create a new todo', async () => {
         const repository = new TodoInMemoryRepository();
         const createUseCase = new CreateTodoUseCase(repository);
         const output = await createUseCase.execute({

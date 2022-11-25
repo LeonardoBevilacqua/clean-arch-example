@@ -1,6 +1,6 @@
-import { TodoRepositoryInterface } from "../domain/ITodo.repository";
-import { Todo } from "../domain/Todo.entity";
-import { CreateTodoInput, CreateTodoOutput } from "../presentation";
+import { TodoRepositoryInterface } from "../../domain/ITodo.repository";
+import { Todo } from "../../domain/Todo.entity";
+import { CreateTodoInput, CreateTodoOutput } from "../../presentation";
 
 export class CreateTodoUseCase {
     constructor(private todoRepo: TodoRepositoryInterface) { }
