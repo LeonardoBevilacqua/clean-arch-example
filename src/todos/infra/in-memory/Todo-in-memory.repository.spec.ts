@@ -32,4 +32,10 @@ describe("TodoInMemoryRepository Test", () => {
         const output = await repository.findById(0);
         expect(output).toStrictEqual(undefined);
     })
+
+    test("should remove a todo by id",async () => {
+        await repository.delete(todo.id);
+        expect(repository.items).toHaveLength(0);
+        expect(repository.items).toStrictEqual([]);
+    })
 })
