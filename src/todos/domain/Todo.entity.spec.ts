@@ -14,6 +14,12 @@ describe("Todo Tests", () => {
         expect(todo.id).toBeDefined();
     });
 
+    test("empty constructor", () => {
+        //@ts-expect-error testing orm constructor
+        const todo = Todo.create(null);
+        expect(todo.props).toStrictEqual({});
+    })
+
     test("updateText method", () => {
         const todoProps: TodoProps = {
             text: "old value",
