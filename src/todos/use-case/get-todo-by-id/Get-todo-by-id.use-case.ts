@@ -1,3 +1,4 @@
+import { NotFoundError } from "../../../errors";
 import { TodoRepositoryInterface } from "../../domain/ITodo.repository";
 import { CreateTodoOutput } from "../../presentation";
 
@@ -8,7 +9,7 @@ export class GetTodoByIdUseCase {
         const todo = await this.todoRepo.findById(id);
 
         if (todo === undefined) {
-            throw new Error(`Todo not found with id ${id}`);
+            throw new NotFoundError(`Todo not found with id ${id}`);
         }
 
         return todo.toJSON();

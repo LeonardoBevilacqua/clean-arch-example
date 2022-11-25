@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Request, Response } from "express";
+import { NotFoundError } from "../../../../errors";
 import { CreateTodoUseCase, GetTodoByIdUseCase, ListAllTodosUseCase } from "../../../use-case";
 import { TodoInMemoryRepository } from "../../in-memory/Todo-in-memory.repository";
 
@@ -24,7 +25,15 @@ todoController.get('/:id', async (req: Request, res: Response) => {
         const output = await getByIdUseCase.execute(Number(req.params.id));
         res.json(output);
     } catch (error) {
-        res.sendStatus(404);
+        if (error instanceof NotFoundError) {
+            res.status(error.code).send({
+                name: error.name,
+                code: error.code,
+                message: error.message
+            });
+        } else {
+            res.status(500).send('Unkown error');
+        }
     }
 });
 
