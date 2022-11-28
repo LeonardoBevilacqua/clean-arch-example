@@ -14,7 +14,7 @@ describe('DeleteTodoByIdUseCase Tests', () => {
         const todo = Todo.create(todoProps);
         repository.items = [todo];
         const deleteByIdUseCase = new DeleteTodoByIdUseCase(repository);
-        const output = await deleteByIdUseCase.execute(todo.id);
+        await deleteByIdUseCase.execute(todo.id);
 
         expect(repository.items).toHaveLength(0);
         expect(repository.items).toStrictEqual([]);
