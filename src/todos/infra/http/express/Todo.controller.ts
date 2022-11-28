@@ -2,6 +2,7 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import { NotFoundError } from "../../../../errors";
 import { CreateTodoUseCase, DeleteTodoByIdUseCase, GetTodoByIdUseCase, ListAllTodosUseCase } from "../../../use-case";
+import { ToggleReminderUseCase } from "../../../use-case/toggle-reminder/Toggle-reminder.use-case";
 import { TodoInMemoryRepository } from "../../in-memory/Todo-in-memory.repository";
 
 const todoRepo = new TodoInMemoryRepository();
@@ -42,6 +43,24 @@ todoController.delete('/:id', async (req: Request, res: Response) => {
     await deleteByIdUseCase.execute(Number(req.params.id));
 
     res.sendStatus(200);
+})
+
+todoController.patch('/:id/reminder/:reminder', async (req: Request, res: Response) => {
+    const toggleReminderUseCase = new ToggleReminderUseCase(todoRepo);
+    try {
+        const output = await toggleReminderUseCase.execute(Number(req.params.id), JSON.parse(req.params.reminder));
+        res.json(output);
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            res.status(error.code).send({
+                name: error.name,
+                code: error.code,
+                message: error.message
+            });
+        } else {
+            res.status(500).send('Unkown error');
+        }
+    }
 })
 
 export { todoController }

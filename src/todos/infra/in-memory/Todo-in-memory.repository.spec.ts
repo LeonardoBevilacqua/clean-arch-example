@@ -33,7 +33,24 @@ describe("TodoInMemoryRepository Test", () => {
         expect(output).toStrictEqual(undefined);
     })
 
+    test("should update a todo by id",async () => {
+        const todoProps: TodoProps = {
+            text: "new test",
+            day: "Today",
+            reminder: false
+        };
+        const updatedTodo = Todo.create(todoProps);
+        repository.items.push(updatedTodo);
+
+        updatedTodo.updateText("updated test")
+        await repository.update(updatedTodo);
+        expect(repository.items).toHaveLength(2);
+        expect(repository.items).toStrictEqual([todo, updatedTodo]);
+        expect(repository.items[1].text).toStrictEqual("updated test");
+    })
+
     test("should remove a todo by id",async () => {
+        repository.items = [todo];
         await repository.delete(todo.id);
         expect(repository.items).toHaveLength(0);
         expect(repository.items).toStrictEqual([]);

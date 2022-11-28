@@ -19,4 +19,8 @@ export class TodoInMemoryRepository implements TodoRepositoryInterface {
     async delete(id: number): Promise<void> {
         this.items = this.items.filter(item => item.id !== id);
     }
+
+    async update(todo: Todo): Promise<void> {
+        this.items.map(currentTodo => currentTodo.id === todo.id ? todo : currentTodo);
+    }
 }

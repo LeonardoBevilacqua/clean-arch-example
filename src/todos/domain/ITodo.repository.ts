@@ -5,4 +5,5 @@ export interface TodoRepositoryInterface {
     findAll(): Promise<Todo[]>;
     findById(id: number): Promise<Todo | undefined>;
     delete(id: number): Promise<void>;
+    update(todo: Todo): Promise<void>;
 }
