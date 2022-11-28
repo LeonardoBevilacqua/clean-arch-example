@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../../errors";
+import { NotFoundError } from "../../../core/errors";
 import { Todo, TodoProps } from "../../domain/Todo.entity";
 import { TodoInMemoryRepository } from "../../infra/in-memory/Todo-in-memory.repository"
 import { ToggleReminderUseCase } from "./Toggle-reminder.use-case";

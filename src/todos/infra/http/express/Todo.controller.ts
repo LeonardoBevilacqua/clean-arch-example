@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { NotFoundError } from "../../../../errors";
+import { NotFoundError } from "../../../../core/errors";
 import { CreateTodoUseCase, DeleteTodoByIdUseCase, GetTodoByIdUseCase, ListAllTodosUseCase } from "../../../use-case";
 import { ToggleReminderUseCase } from "../../../use-case/toggle-reminder/Toggle-reminder.use-case";
 import { TodoInMemoryRepository } from "../../in-memory/Todo-in-memory.repository";

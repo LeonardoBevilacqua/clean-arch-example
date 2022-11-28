@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../../errors";
+import { NotFoundError } from "../../../core/errors";
 import { TodoRepositoryInterface } from "../../domain/ITodo.repository";
 import { CreateTodoOutput } from "../../presentation";
 
