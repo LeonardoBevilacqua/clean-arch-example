@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 import { NotFoundError } from "../../../../errors";
-import { CreateTodoUseCase, GetTodoByIdUseCase, ListAllTodosUseCase } from "../../../use-case";
+import { CreateTodoUseCase, DeleteTodoByIdUseCase, GetTodoByIdUseCase, ListAllTodosUseCase } from "../../../use-case";
 import { TodoInMemoryRepository } from "../../in-memory/Todo-in-memory.repository";
 
 const todoRepo = new TodoInMemoryRepository();
@@ -36,6 +36,13 @@ todoController.get('/:id', async (req: Request, res: Response) => {
         }
     }
 });
+
+todoController.delete('/:id', async (req: Request, res: Response) => {
+    const deleteByIdUseCase = new DeleteTodoByIdUseCase(todoRepo);
+    await deleteByIdUseCase.execute(Number(req.params.id));
+
+    res.sendStatus(200);
+})
 
 export { todoController }
 
