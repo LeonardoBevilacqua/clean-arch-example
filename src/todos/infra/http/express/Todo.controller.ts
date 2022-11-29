@@ -1,17 +1,17 @@
-import { Router } from "express";
-import { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import { NotFoundError } from "../../../../core/errors";
-import { CreateTodoUseCase, DeleteTodoByIdUseCase, GetTodoByIdUseCase, ListAllTodosUseCase } from "../../../use-case";
-import { ToggleReminderUseCase } from "../../../use-case/toggle-reminder/Toggle-reminder.use-case";
+import { ExpressRequestAdapter, ExpressResponseAdapter } from "../../../../core/presentation/adapters";
+import { CreateTodoUseCase, DeleteTodoByIdUseCase, fabricateCreateTodoController, GetTodoByIdUseCase, ListAllTodosUseCase, ToggleReminderUseCase } from "../../../use-case";
 import { TodoInMemoryRepository } from "../../in-memory/Todo-in-memory.repository";
 
-const todoRepo = new TodoInMemoryRepository();
+const todoRepo = TodoInMemoryRepository.Instance;
 const todoController = Router()
 
 todoController.post('/', async (req: Request, res: Response) => {
-    const createUseCase = new CreateTodoUseCase(todoRepo);
-    const output = await createUseCase.execute(req.body);
-    res.status(201).json(output);
+    const httpRequest = ExpressRequestAdapter.adapt(req)
+    const controller = fabricateCreateTodoController();
+    const result = await controller.handle(httpRequest);
+    ExpressResponseAdapter.adapt(res, result);
 });
 
 todoController.get('/', async (_req: Request, res: Response) => {
@@ -63,5 +63,5 @@ todoController.patch('/:id/reminder/:reminder', async (req: Request, res: Respon
     }
 })
 
-export { todoController }
+export { todoController };
 

@@ -4,7 +4,7 @@ import { CreateTodoUseCase } from "./Create-todo.use-case";
 describe('CreateTodoUseCase Tests', () => {
 
     it('should create a new todo', async () => {
-        const repository = new TodoInMemoryRepository();
+        const repository = TodoInMemoryRepository.Instance;
         const createUseCase = new CreateTodoUseCase(repository);
         const output = await createUseCase.execute({
             text: "test",
