@@ -1,5 +1,4 @@
 import { Request, Response, Router } from "express";
-import { ExpressRequestAdapter, ExpressResponseAdapter } from "../presentation/adapters";
 import {
     fabricateCreateTodoController,
     fabricateDeleteTodoByIdController,
@@ -7,9 +6,8 @@ import {
     fabricateListAllTodosController,
     fabricateToggleReminderController
 } from "../../../../../../todos/use-case";
-import { TodoInMemoryRepository } from "../../../../../../todos/infra/in-memory/Todo-in-memory.repository";
+import { ExpressRequestAdapter, ExpressResponseAdapter } from "../presentation/adapters";
 
-const todoRepo = TodoInMemoryRepository.Instance;
 const todoController = Router()
 
 todoController.post('/', async (req: Request, res: Response) => {
