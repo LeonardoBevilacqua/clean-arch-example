@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import { todoController } from "../../../todos/infra/http/express/Todo.controller";
+import { todoController } from "../../../../todos/infra/http/express/Todo.controller";
 
 const app: Express = express();
 app.use(express.json())
