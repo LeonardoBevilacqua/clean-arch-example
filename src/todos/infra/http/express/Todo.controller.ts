@@ -1,7 +1,12 @@
 import { Request, Response, Router } from "express";
-import { NotFoundError } from "../../../../core/errors";
 import { ExpressRequestAdapter, ExpressResponseAdapter } from "../../../../core/presentation/adapters";
-import { CreateTodoUseCase, DeleteTodoByIdUseCase, fabricateCreateTodoController, GetTodoByIdUseCase, ListAllTodosUseCase, ToggleReminderUseCase } from "../../../use-case";
+import {
+    fabricateCreateTodoController,
+    fabricateDeleteTodoByIdController,
+    fabricateGetTodoByIdController,
+    fabricateListAllTodosController,
+    fabricateToggleReminderController
+} from "../../../use-case";
 import { TodoInMemoryRepository } from "../../in-memory/Todo-in-memory.repository";
 
 const todoRepo = TodoInMemoryRepository.Instance;
@@ -14,53 +19,32 @@ todoController.post('/', async (req: Request, res: Response) => {
     ExpressResponseAdapter.adapt(res, result);
 });
 
-todoController.get('/', async (_req: Request, res: Response) => {
-    const listAllUseCase = new ListAllTodosUseCase(todoRepo);
-    const output = await listAllUseCase.execute();
-    res.json(output);
+todoController.get('/', async (req: Request, res: Response) => {
+    const httpRequest = ExpressRequestAdapter.adapt(req)
+    const controller = fabricateListAllTodosController();
+    const result = await controller.handle(httpRequest);
+    ExpressResponseAdapter.adapt(res, result);
 });
 
 todoController.get('/:id', async (req: Request, res: Response) => {
-    const getByIdUseCase = new GetTodoByIdUseCase(todoRepo);
-    try {
-        const output = await getByIdUseCase.execute(Number(req.params.id));
-        res.json(output);
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            res.status(error.code).send({
-                name: error.name,
-                code: error.code,
-                message: error.message
-            });
-        } else {
-            res.status(500).send('Unkown error');
-        }
-    }
+    const httpRequest = ExpressRequestAdapter.adapt(req)
+    const controller = fabricateGetTodoByIdController();
+    const result = await controller.handle(httpRequest);
+    ExpressResponseAdapter.adapt(res, result);
 });
 
 todoController.delete('/:id', async (req: Request, res: Response) => {
-    const deleteByIdUseCase = new DeleteTodoByIdUseCase(todoRepo);
-    await deleteByIdUseCase.execute(Number(req.params.id));
-
-    res.sendStatus(200);
+    const httpRequest = ExpressRequestAdapter.adapt(req)
+    const controller = fabricateDeleteTodoByIdController();
+    const result = await controller.handle(httpRequest);
+    ExpressResponseAdapter.adapt(res, result);
 })
 
 todoController.patch('/:id/reminder/:reminder', async (req: Request, res: Response) => {
-    const toggleReminderUseCase = new ToggleReminderUseCase(todoRepo);
-    try {
-        const output = await toggleReminderUseCase.execute(Number(req.params.id), JSON.parse(req.params.reminder));
-        res.json(output);
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            res.status(error.code).send({
-                name: error.name,
-                code: error.code,
-                message: error.message
-            });
-        } else {
-            res.status(500).send('Unkown error');
-        }
-    }
+    const httpRequest = ExpressRequestAdapter.adapt(req)
+    const controller = fabricateToggleReminderController();
+    const result = await controller.handle(httpRequest);
+    ExpressResponseAdapter.adapt(res, result);
 })
 
 export { todoController };
