@@ -5,7 +5,7 @@ import { DeleteTodoByIdUseCase } from "./Delete-todo-by-id.use-case";
 describe('DeleteTodoByIdUseCase Tests', () => {
 
     it('should delete a todo by id', async () => {
-        const repository = new TodoInMemoryRepository();
+        const repository = TodoInMemoryRepository.Instance;
         const todoProps: TodoProps = {
             text: "test",
             day: "Today",

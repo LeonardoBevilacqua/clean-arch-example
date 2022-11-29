@@ -5,7 +5,7 @@ import { ListAllTodosUseCase } from "./List-all-todos.use-case";
 describe('ListAllTodosUseCase Tests', () => {
 
     it('should list all todos', async () => {
-        const repository = new TodoInMemoryRepository();
+        const repository = TodoInMemoryRepository.Instance;
         const todoProps: TodoProps = {
             text: "test",
             day: "Today",

@@ -5,7 +5,7 @@ import { ToggleReminderUseCase } from "./Toggle-reminder.use-case";
 
 describe("ToggleReminder Tests", () => {
     test('Should update a todo reminder',async () => {
-        const repository = new TodoInMemoryRepository();
+        const repository = TodoInMemoryRepository.Instance;
         const todoProps: TodoProps = {
             text: "test",
             day: "Today",
@@ -23,7 +23,7 @@ describe("ToggleReminder Tests", () => {
     })
 
     test('should throw an exception', async () => {
-        const repository = new TodoInMemoryRepository();
+        const repository = TodoInMemoryRepository.Instance;
         const toggleReminderUseCase = new ToggleReminderUseCase(repository);
         await expect(toggleReminderUseCase.execute(1, true)).rejects.toThrow(NotFoundError);
     })

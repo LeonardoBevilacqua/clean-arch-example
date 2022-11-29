@@ -2,7 +2,7 @@ import { Todo, TodoProps } from "../../domain/Todo.entity";
 import { TodoInMemoryRepository } from "./Todo-in-memory.repository"
 
 describe("TodoInMemoryRepository Test", () => {
-    const repository = new TodoInMemoryRepository();
+    const repository = TodoInMemoryRepository.Instance;
     let todo: Todo;
 
     test("should insert a new todo", async () => {

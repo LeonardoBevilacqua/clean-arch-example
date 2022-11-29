@@ -2,7 +2,12 @@ import { TodoRepositoryInterface } from "../../domain/ITodo.repository";
 import { Todo } from "../../domain/Todo.entity";
 
 export class TodoInMemoryRepository implements TodoRepositoryInterface {
+    private static _instance: TodoInMemoryRepository;
     items: Todo[] = [];
+
+    public static get Instance() {
+        return this._instance || (this._instance = new this());
+    }
 
     async insert(todo: Todo): Promise<void> {
         this.items.push(todo);

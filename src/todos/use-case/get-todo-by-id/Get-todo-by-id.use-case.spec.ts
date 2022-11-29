@@ -6,7 +6,7 @@ import { GetTodoByIdUseCase } from "./Get-todo-by-id.use-case";
 describe('GetTodoByIdUseCase Tests', () => {
 
     test('should get a todo by id', async () => {
-        const repository = new TodoInMemoryRepository();
+        const repository = TodoInMemoryRepository.Instance;
         const todoProps: TodoProps = {
             text: "test",
             day: "Today",
@@ -22,7 +22,7 @@ describe('GetTodoByIdUseCase Tests', () => {
     });
 
     test('should throw an exception', async () => {
-        const repository = new TodoInMemoryRepository();
+        const repository = TodoInMemoryRepository.Instance;
         const getByIdUseCase = new GetTodoByIdUseCase(repository);
         await expect(getByIdUseCase.execute(1)).rejects.toThrow(NotFoundError);
     })
