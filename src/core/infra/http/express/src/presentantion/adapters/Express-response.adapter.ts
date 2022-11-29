@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { HttpResponseOutput } from "../contract/Response.http";
+import { HttpResponseOutput } from "../../../../../../presentation/contract";
 
 export class ExpressResponseAdapter {
     static adapt(response: Response, httpResponse: HttpResponseOutput) {

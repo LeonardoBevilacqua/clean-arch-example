@@ -1,13 +1,13 @@
 import { Request, Response, Router } from "express";
-import { ExpressRequestAdapter, ExpressResponseAdapter } from "../../../../core/presentation/adapters";
+import { ExpressRequestAdapter, ExpressResponseAdapter } from "../presentantion/adapters";
 import {
     fabricateCreateTodoController,
     fabricateDeleteTodoByIdController,
     fabricateGetTodoByIdController,
     fabricateListAllTodosController,
     fabricateToggleReminderController
-} from "../../../use-case";
-import { TodoInMemoryRepository } from "../../in-memory/Todo-in-memory.repository";
+} from "../../../../../../todos/use-case";
+import { TodoInMemoryRepository } from "../../../../../../todos/infra/in-memory/Todo-in-memory.repository";
 
 const todoRepo = TodoInMemoryRepository.Instance;
 const todoController = Router()
