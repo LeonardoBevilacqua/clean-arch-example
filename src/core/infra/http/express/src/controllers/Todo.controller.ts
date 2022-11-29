@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { ExpressRequestAdapter, ExpressResponseAdapter } from "../presentantion/adapters";
+import { ExpressRequestAdapter, ExpressResponseAdapter } from "../presentation/adapters";
 import {
     fabricateCreateTodoController,
     fabricateDeleteTodoByIdController,
