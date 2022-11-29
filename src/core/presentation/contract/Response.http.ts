@@ -1,3 +1,5 @@
+import { NotFoundError } from "../../errors";
+
 export type HttpResponseOutput = {
     statusCode: number;
     body: Object,
@@ -43,6 +45,20 @@ export class HttpResponse {
         };
     }
 
+    // 204
+    static noContent(): HttpResponseOutput {
+        return {
+            statusCode: 204,
+            body: "no content",
+            headers: Object.assign(
+                {
+                    "Content-Type": "application/json",
+                },
+                allowCors
+            ),
+        };
+    }
+
     // 400
     static badRequest(error: any): HttpResponseOutput {
         return {
@@ -72,10 +88,14 @@ export class HttpResponse {
     }
 
     // 404
-    static notFound(data: any): HttpResponseOutput {
+    static notFound(error: NotFoundError): HttpResponseOutput {
         return {
             statusCode: 404,
-            body: data,
+            body: {
+                name: error.name,
+                code: error.code,
+                message: error.message
+            },
             headers: Object.assign(
                 {
                     "Content-Type": "application/json",
@@ -85,6 +105,7 @@ export class HttpResponse {
         };
     }
 
+    // 409
     static conflict(error: any): HttpResponseOutput {
         return {
             statusCode: 409,
