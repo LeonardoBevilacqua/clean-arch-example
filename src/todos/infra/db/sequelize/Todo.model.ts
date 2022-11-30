@@ -1,8 +1,7 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../../../../core/infra/db/sequelize/Sequelize.repository";
+import { DataTypes, Sequelize } from "sequelize";
 
 
-export const TodoModel = sequelize.define("todo", {
+export const TodoModel = (sequelize: Sequelize) => sequelize.define("todo", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

@@ -1,25 +1,31 @@
-import { SequelizeRepository } from "../../../../core/infra/db/sequelize/Sequelize.repository";
 import { TodoRepositoryInterface } from "../../../domain/ITodo.repository";
 import { Todo } from "../../../domain/Todo.entity";
 import { TodoModel } from "./Todo.model";
+import { Sequelize } from "sequelize";
 
 export class TodoSequelizeRepository implements TodoRepositoryInterface {
+    private todoModel;
+
+    constructor(sequelize: Sequelize) {
+        this.todoModel = TodoModel(sequelize)
+    }
+
     async insert(todo: Todo): Promise<Todo> {
-        const result = await TodoModel.create(todo.toJSON());
+        const result = await this.todoModel.create(todo.toJSON());
         return Todo.create(result.dataValues, result.dataValues.id)
     }
     async findAll(): Promise<Todo[]> {
-        const todos = await TodoModel.findAll();
+        const todos = await this.todoModel.findAll();
         return todos.map(todo => Todo.create(todo.dataValues, todo.dataValues.id));
     }
     async findById(id: number): Promise<Todo | undefined> {
-        const result = await TodoModel.findByPk(id);
+        const result = await this.todoModel.findByPk(id);
         return result !== null ? Todo.create(result.dataValues, result.dataValues.id) : undefined;
     }
     async delete(id: number): Promise<void> {
-        await TodoModel.destroy({ where: { id } });
+        await this.todoModel.destroy({ where: { id } });
     }
     async update(todo: Todo): Promise<void> {
-        const result = await TodoModel.update(todo.toJSON(), { where: { id: todo.id } });
+        const result = await this.todoModel.update(todo.toJSON(), { where: { id: todo.id } });
     }
 }
