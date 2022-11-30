@@ -1,4 +1,4 @@
-import { TodoInMemoryRepository } from "../../infra/in-memory/Todo-in-memory.repository"
+import { TodoInMemoryRepository } from "../../infra/db/in-memory/Todo-in-memory.repository"
 import { CreateTodoUseCase } from "./Create-todo.use-case";
 
 describe('CreateTodoUseCase Tests', () => {

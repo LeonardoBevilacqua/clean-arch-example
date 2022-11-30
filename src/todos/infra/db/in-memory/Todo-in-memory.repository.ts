@@ -1,5 +1,5 @@
-import { TodoRepositoryInterface } from "../../domain/ITodo.repository";
-import { Todo } from "../../domain/Todo.entity";
+import { TodoRepositoryInterface } from "../../../domain/ITodo.repository";
+import { Todo } from "../../../domain/Todo.entity";
 
 export class TodoInMemoryRepository implements TodoRepositoryInterface {
     private static _instance: TodoInMemoryRepository;

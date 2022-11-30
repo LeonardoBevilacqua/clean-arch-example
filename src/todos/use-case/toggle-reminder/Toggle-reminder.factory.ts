@@ -1,4 +1,4 @@
-import { TodoInMemoryRepository } from "../../infra/in-memory/Todo-in-memory.repository";
+import { TodoInMemoryRepository } from "../../infra/db/in-memory/Todo-in-memory.repository";
 import { ToggleReminderController } from "./Toggle-reminder.controller";
 import { ToggleReminderUseCase } from "./Toggle-reminder.use-case";
 

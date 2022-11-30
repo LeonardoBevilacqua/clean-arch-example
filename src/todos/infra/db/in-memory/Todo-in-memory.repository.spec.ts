@@ -1,4 +1,4 @@
-import { Todo, TodoProps } from "../../domain/Todo.entity";
+import { Todo, TodoProps } from "../../../domain/Todo.entity";
 import { TodoInMemoryRepository } from "./Todo-in-memory.repository"
 
 describe("TodoInMemoryRepository Test", () => {

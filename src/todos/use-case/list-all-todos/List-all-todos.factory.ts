@@ -1,4 +1,4 @@
-import { TodoInMemoryRepository } from "../../infra/in-memory/Todo-in-memory.repository";
+import { TodoInMemoryRepository } from "../../infra/db/in-memory/Todo-in-memory.repository";
 import { ListAllTodosController } from "./List-all-todos.controller";
 import { ListAllTodosUseCase } from "./List-all-todos.use-case";
 
