@@ -12,13 +12,14 @@ export class TodoSequelizeRepository implements TodoRepositoryInterface {
         const todos = await TodoModel.findAll();
         return todos.map(todo => Todo.create(todo.dataValues, todo.dataValues.id));
     }
-    findById(id: number): Promise<Todo | undefined> {
-        throw new Error("Method not implemented.");
+    async findById(id: number): Promise<Todo | undefined> {
+        const result = await TodoModel.findByPk(id);
+        return result !== null ? Todo.create(result.dataValues, result.dataValues.id) : undefined;
     }
-    delete(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    async delete(id: number): Promise<void> {
+        await TodoModel.destroy({ where: { id } });
     }
-    update(todo: Todo): Promise<void> {
-        throw new Error("Method not implemented.");
+    async update(todo: Todo): Promise<void> {
+        const result = await TodoModel.update(todo.toJSON(), { where: { id: todo.id } });
     }
 }
