@@ -1,10 +1,15 @@
-import { TodoInMemoryRepository } from "../../infra/db/in-memory/Todo-in-memory.repository";
+import { SequelizeRepository } from "../../../core/infra/db/sequelize/Sequelize.repository";
+import { TodoSequelizeRepository } from "../../infra/db";
 import { DeleteTodoByIdController } from "./Delete-todo-by-id.controller";
 import { DeleteTodoByIdUseCase } from "./Delete-todo-by-id.use-case";
 
-export const fabricateDeleteTodoByIdController = () => {
+export const fabricateDeleteTodoByIdController = async () => {
+    // config
+    const sequelizeConfig = new SequelizeRepository();
+    await sequelizeConfig.load();
     // dependencies
-    const todoRepo = TodoInMemoryRepository.Instance;
+     //const todoRepo = TodoInMemoryRepository.Instance;
+    const todoRepo = new TodoSequelizeRepository();
     // use case
     const deleteByIdUseCase = new DeleteTodoByIdUseCase(todoRepo);
 
