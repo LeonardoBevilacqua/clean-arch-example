@@ -1,5 +1,5 @@
 export type CreateTodoOutput = {
-    id: number;
+    id: number | null;
     text: string;
     day: string;
     reminder: boolean;

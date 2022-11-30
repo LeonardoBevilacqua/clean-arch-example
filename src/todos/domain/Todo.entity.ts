@@ -6,11 +6,11 @@ export type TodoProps = {
 }
 
 export class Todo {
-    public readonly id: number;
+    public readonly id: number | null;
     public props: Required<TodoProps>
 
     private constructor(props: TodoProps, id?: number) {
-        this.id = id || Math.floor(Math.random() * 100);
+        this.id = id || null;
 
         if (!props) {
             //@ts-expect-error used for ORM
