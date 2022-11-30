@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  clean_arch_db:
+    image: postgres:11
+    volumes:
+      - ./utils/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres.db:/data/postgres
+    env_file:
+      - ./utils/.env # replace this line with the correct file
+    restart: unless-stopped
+    network_mode: host
