@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize('postgres://clean_arch:clean_arch@localhost:5432/clean_arch');
+export const sequelize = new Sequelize('postgres://clean_arch:clean_arch@192.168.0.5:5432/clean_arch');
 export class SequelizeRepository {
     async load() {
         try {
