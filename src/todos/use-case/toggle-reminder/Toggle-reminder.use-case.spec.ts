@@ -1,6 +1,6 @@
 import { NotFoundError } from "../../../core/errors";
 import { Todo, TodoProps } from "../../domain/Todo.entity";
-import { TodoInMemoryRepository } from "../../infra/in-memory/Todo-in-memory.repository"
+import { TodoInMemoryRepository } from "../../infra/db/in-memory/Todo-in-memory.repository"
 import { ToggleReminderUseCase } from "./Toggle-reminder.use-case";
 
 describe("ToggleReminder Tests", () => {

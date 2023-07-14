@@ -1,4 +1,4 @@
-import { Todo, TodoProps } from "../../domain/Todo.entity";
+import { Todo, TodoProps } from "../../../domain/Todo.entity";
 import { TodoInMemoryRepository } from "./Todo-in-memory.repository"
 
 describe("TodoInMemoryRepository Test", () => {
@@ -11,7 +11,7 @@ describe("TodoInMemoryRepository Test", () => {
             day: "Today",
             reminder: false
         };
-        todo = Todo.create(todoProps);
+        todo = Todo.create(todoProps, 1);
         await repository.insert(todo);
         expect(repository.items).toHaveLength(1);
         expect(repository.items).toStrictEqual([todo]);
@@ -24,22 +24,22 @@ describe("TodoInMemoryRepository Test", () => {
     })
 
     test("should return a todo by id", async () => {
-        const output = await repository.findById(todo.id);
+        const output = await repository.findById(Number(todo.id));
         expect(output).toStrictEqual(todo);
     })
 
-    test("should return undefined",async () => {
+    test("should return undefined", async () => {
         const output = await repository.findById(0);
         expect(output).toStrictEqual(undefined);
     })
 
-    test("should update a todo by id",async () => {
+    test("should update a todo by id", async () => {
         const todoProps: TodoProps = {
             text: "new test",
             day: "Today",
             reminder: false
         };
-        const updatedTodo = Todo.create(todoProps);
+        const updatedTodo = Todo.create(todoProps, 2);
         repository.items.push(updatedTodo);
 
         updatedTodo.updateText("updated test")
@@ -49,9 +49,9 @@ describe("TodoInMemoryRepository Test", () => {
         expect(repository.items[1].text).toStrictEqual("updated test");
     })
 
-    test("should remove a todo by id",async () => {
+    test("should remove a todo by id", async () => {
         repository.items = [todo];
-        await repository.delete(todo.id);
+        await repository.delete(Number(todo.id));
         expect(repository.items).toHaveLength(0);
         expect(repository.items).toStrictEqual([]);
     })

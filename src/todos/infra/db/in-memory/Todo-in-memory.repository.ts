@@ -1,5 +1,5 @@
-import { TodoRepositoryInterface } from "../../domain/ITodo.repository";
-import { Todo } from "../../domain/Todo.entity";
+import { TodoRepositoryInterface } from "../../../domain/ITodo.repository";
+import { Todo } from "../../../domain/Todo.entity";
 
 export class TodoInMemoryRepository implements TodoRepositoryInterface {
     private static _instance: TodoInMemoryRepository;
@@ -9,8 +9,9 @@ export class TodoInMemoryRepository implements TodoRepositoryInterface {
         return this._instance || (this._instance = new this());
     }
 
-    async insert(todo: Todo): Promise<void> {
+    async insert(todo: Todo): Promise<Todo> {
         this.items.push(todo);
+        return todo;
     }
 
     async findAll(): Promise<Todo[]> {

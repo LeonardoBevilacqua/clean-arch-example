@@ -1,10 +1,15 @@
-import { TodoInMemoryRepository } from "../../infra/in-memory/Todo-in-memory.repository";
+import { sequelize, SequelizeRepository } from "../../../core/infra/db/sequelize/Sequelize.repository";
+import { TodoSequelizeRepository } from "../../infra/db";
 import { ToggleReminderController } from "./Toggle-reminder.controller";
 import { ToggleReminderUseCase } from "./Toggle-reminder.use-case";
 
-export const fabricateToggleReminderController = () => {
-     // dependencies
-     const todoRepo = TodoInMemoryRepository.Instance;
+export const fabricateToggleReminderController = async () => {
+     // config
+    const sequelizeConfig = new SequelizeRepository();
+    await sequelizeConfig.load();
+    // dependencies
+     //const todoRepo = TodoInMemoryRepository.Instance;
+    const todoRepo = new TodoSequelizeRepository(sequelize);
      // use case
      const toggleReminderUseCase = new ToggleReminderUseCase(todoRepo);
 

@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { HttpRequest } from "../contract";
+import { HttpRequest } from "../../../../../../presentation/contract";
 
 export class ExpressRequestAdapter {
     static adapt(request: Request) {
